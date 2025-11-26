@@ -1,4 +1,4 @@
-# Design Guidelines for MCTIERS Ranking Platform
+# Design Guidelines for MelonTier Ranking Platform
 
 ## Design Approach
 **Hybrid Gaming Leaderboard System**: Combining esports/gaming leaderboard patterns (Steam, tracker.gg, League rankings) with a clean, data-focused design system foundation for optimal readability and competitive presentation.

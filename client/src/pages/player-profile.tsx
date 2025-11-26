@@ -8,7 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TierBadge } from "@/components/tier-badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle, ArrowLeft, Trophy, Target, Server, Award } from "lucide-react";
+import { AlertCircle, ArrowLeft, Trophy, Target, Award } from "lucide-react";
+import { SiDiscord } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { gameModeInfo } from "@/lib/game-modes";
 import { Separator } from "@/components/ui/separator";
@@ -207,16 +208,23 @@ export default function PlayerProfile() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <Server className="h-5 w-5 text-primary" />
-                  Server Info
+                  <SiDiscord className="h-5 w-5 text-[#5865F2]" />
+                  Community
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div>
-                  <div className="text-sm text-muted-foreground mb-1">Server IP</div>
-                  <code className="px-3 py-1.5 rounded-md bg-muted text-sm font-mono font-semibold">
-                    mcpvp.club
-                  </code>
+                  <div className="text-sm text-muted-foreground mb-1">Join Discord</div>
+                  <a 
+                    href="https://discord.gg/Rm49gjeYr9" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#5865F2] text-white text-sm font-semibold hover-elevate active-elevate-2 transition-all"
+                    data-testid="discord-join-link"
+                  >
+                    <SiDiscord className="h-4 w-4" />
+                    Discord Server
+                  </a>
                 </div>
                 <Separator />
                 <div>

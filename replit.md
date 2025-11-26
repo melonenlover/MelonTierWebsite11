@@ -1,7 +1,7 @@
-# MCTIERS - Player Ranking Platform
+# MelonTier - Player Ranking Platform
 
 ## Overview
-MCTIERS is a competitive tier-based ranking platform inspired by mctiers.com, designed to showcase Minecraft PvP player rankings across multiple game modes with a modern, gaming-oriented aesthetic. The platform displays player leaderboards, tier badges, combat achievements, and detailed player profiles.
+MelonTier is a competitive tier-based ranking platform inspired by mctiers.com, designed to showcase Minecraft PvP player rankings across multiple game modes with a modern, gaming-oriented aesthetic. The platform displays player leaderboards, tier badges, combat achievements, and detailed player profiles.
 
 ## Current State
 The MVP is fully functional with all core features implemented:
@@ -20,8 +20,8 @@ The MVP is fully functional with all core features implemented:
 - Updated all game modes to match mctiers.com:
   - Overall, LTMs, Vanilla, UHC, Pot, NethOP, SMP, Sword, Axe, Mace
 - Updated player usernames to realistic Minecraft PvP names
-- Changed branding from MelonTier to MCTIERS
-- Updated server IP to mcpvp.club
+- Custom MelonTier logo branding
+- Discord community link: https://discord.gg/Rm49gjeYr9
 
 ### Frontend Implementation
 - Created complete schema with Player, TierLevel, GameMode, and Region types

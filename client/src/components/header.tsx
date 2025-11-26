@@ -1,4 +1,5 @@
-import { Search, Loader2, Swords } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
+import { SiDiscord } from "react-icons/si";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -6,6 +7,7 @@ import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Player } from "@shared/schema";
+import logoImage from "@assets/b8cc2551e4a846f10d6920ac78dc434c_1764170487384.webp";
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
@@ -38,12 +40,14 @@ export function Header({ onSearch, isSearching }: HeaderProps) {
         <div className="flex items-center justify-between gap-4">
           <Link href="/">
             <div className="flex items-center gap-3 cursor-pointer hover-elevate active-elevate-2 px-3 py-2 rounded-md transition-all" data-testid="logo">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 shadow-md">
-                <Swords className="h-6 w-6 text-primary-foreground" />
-              </div>
+              <img 
+                src={logoImage} 
+                alt="MelonTier Logo" 
+                className="w-10 h-10 rounded-lg shadow-md"
+              />
               <div>
                 <h1 className="text-2xl font-black font-['Rajdhani'] tracking-tight text-foreground">
-                  MCTIERS
+                  MelonTier
                 </h1>
                 <p className="text-xs text-muted-foreground uppercase tracking-wide">Rankings</p>
               </div>
@@ -69,10 +73,16 @@ export function Header({ onSearch, isSearching }: HeaderProps) {
           </form>
 
           <div className="flex items-center gap-2">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted/50 border" data-testid="server-info">
-              <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs font-medium text-muted-foreground">mcpvp.club</span>
-            </div>
+            <a 
+              href="https://discord.gg/Rm49gjeYr9" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted/50 border hover-elevate active-elevate-2 transition-all cursor-pointer" 
+              data-testid="discord-link"
+            >
+              <SiDiscord className="h-4 w-4 text-[#5865F2]" />
+              <span className="text-xs font-medium text-muted-foreground">Discord</span>
+            </a>
           </div>
         </div>
       </div>
