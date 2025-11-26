@@ -5,7 +5,7 @@ import { z } from "zod";
 export const gameModes = [
   "overall",
   "ltm",
-  "vanilla",
+  "crystal",
   "uhc",
   "pot",
   "nethop",
@@ -72,7 +72,7 @@ export const insertPlayerSchema = createInsertSchema(players, {
   tiers: z.object({
     overall: z.enum(tierLevels).nullable(),
     ltm: z.enum(tierLevels).nullable(),
-    vanilla: z.enum(tierLevels).nullable(),
+    crystal: z.enum(tierLevels).nullable(),
     uhc: z.enum(tierLevels).nullable(),
     pot: z.enum(tierLevels).nullable(),
     nethop: z.enum(tierLevels).nullable(),

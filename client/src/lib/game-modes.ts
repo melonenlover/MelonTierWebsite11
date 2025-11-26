@@ -24,9 +24,9 @@ export const gameModeInfo: Record<GameMode, GameModeInfo> = {
     name: "LTMs",
     icon: "Sparkles"
   },
-  vanilla: {
-    id: "vanilla",
-    name: "Vanilla",
+  crystal: {
+    id: "crystal",
+    name: "Crystal",
     icon: "Shield"
   },
   uhc: {
