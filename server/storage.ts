@@ -1,4 +1,4 @@
-import { type Player, type InsertPlayerInput, type GameMode, type TierLevel, players } from "@shared/schema";
+import { type Player, type InsertPlayerInput, type GameMode, type TierLevel, players, tierPoints } from "@shared/schema";
 import { db } from "./db";
 import { eq, ilike, desc } from "drizzle-orm";
 
@@ -30,14 +30,10 @@ export class DatabaseStorage implements IStorage {
         const tierA = a.tiers[gameMode] as string;
         const tierB = b.tiers[gameMode] as string;
         
-        const getTierScore = (tier: string): number => {
-          if (tier.startsWith("HT")) {
-            return 100 - parseInt(tier.slice(2));
-          }
-          return 50 - parseInt(tier.slice(2));
-        };
+        const scoreA = tierPoints[tierA] || 0;
+        const scoreB = tierPoints[tierB] || 0;
         
-        return getTierScore(tierB) - getTierScore(tierA);
+        return scoreB - scoreA;
       });
 
     return playersWithTier;

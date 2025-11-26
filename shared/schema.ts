@@ -18,11 +18,23 @@ export const gameModes = [
 export type GameMode = typeof gameModes[number];
 
 export const tierLevels = [
-  "HT1", "HT2", "HT3", "HT4", "HT5",
-  "LT1", "LT2", "LT3", "LT4", "LT5"
+  "HT1", "LT1", "HT2", "LT2", "HT3", "LT3", "HT4", "LT4", "HT5", "LT5"
 ] as const;
 
 export type TierLevel = typeof tierLevels[number] | null;
+
+export const tierPoints: Record<string, number> = {
+  "HT1": 60,  // High Tier 1 (höchstes)
+  "LT1": 45,  // Low Tier 1
+  "HT2": 30,  // High Tier 2
+  "LT2": 20,  // Low Tier 2
+  "HT3": 10,  // High Tier 3
+  "LT3": 6,   // Low Tier 3
+  "HT4": 4,   // High Tier 4
+  "LT4": 3,   // Low Tier 4
+  "HT5": 2,   // High Tier 5
+  "LT5": 1,   // Low Tier 5 (niedrigstes)
+};
 
 export const regions = ["NA", "EU", "AS", "SA", "OC"] as const;
 export type Region = typeof regions[number];
