@@ -1,6 +1,6 @@
 import { type Player, type InsertPlayerInput, type GameMode, type TierLevel, players, tierPoints, gameModes } from "@shared/schema";
 import { db } from "./db";
-import { eq, ilike, desc } from "drizzle-orm";
+import { eq, ilike, desc, count } from "drizzle-orm";
 
 function calculateTotalPoints(tiers: Record<GameMode, TierLevel>): number {
   let total = 0;
@@ -94,8 +94,8 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getPlayerCount(): Promise<number> {
-    const result = await db.select().from(players);
-    return result.length;
+    const result = await db.select({ count: count() }).from(players);
+    return result[0]?.count ?? 0;
   }
 
   async seedInitialData(): Promise<void> {
