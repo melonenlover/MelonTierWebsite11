@@ -90,7 +90,7 @@ export default function PlayerProfile() {
         <Card className="mb-8 border-2 bg-gradient-to-br from-primary/5 to-transparent">
           <CardContent className="p-8">
             <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
-              <Avatar className="h-32 w-32 shadow-xl border-4 border-background" data-testid={`profile-avatar-${player.id}`}>
+              <Avatar className="h-32 w-32 shadow-xl border-4 border-background" data-testid={`profile-avatar-${player.discordId}`}>
                 <AvatarImage src={player.avatarUrl ?? undefined} alt={player.username} />
                 <AvatarFallback className="text-4xl font-bold bg-primary/20 text-primary">
                   {player.username.slice(0, 2).toUpperCase()}
@@ -100,18 +100,18 @@ export default function PlayerProfile() {
               <div className="flex-1">
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div>
-                    <h1 className="text-4xl font-black font-['Rajdhani'] mb-2" data-testid={`profile-name-${player.id}`}>
+                    <h1 className="text-4xl font-black font-['Rajdhani'] mb-2" data-testid={`profile-name-${player.discordId}`}>
                       {player.username}
                     </h1>
                     <div className="flex flex-wrap items-center gap-3">
-                      <Badge variant="secondary" className="text-sm font-semibold uppercase tracking-wide px-3 py-1 gap-1.5" data-testid={`profile-title-${player.id}`}>
+                      <Badge variant="secondary" className="text-sm font-semibold uppercase tracking-wide px-3 py-1 gap-1.5" data-testid={`profile-title-${player.discordId}`}>
                         {(() => {
                           const Icon = getCombatTitleIcon(player.combatTitle);
                           return <Icon className="h-4 w-4" />;
                         })()}
                         {player.combatTitle}
                       </Badge>
-                      <Badge variant="outline" className="text-sm px-3 py-1" data-testid={`profile-region-${player.id}`}>
+                      <Badge variant="outline" className="text-sm px-3 py-1" data-testid={`profile-region-${player.discordId}`}>
                         <span className="font-semibold">{player.region}</span>
                       </Badge>
                     </div>
@@ -120,7 +120,7 @@ export default function PlayerProfile() {
 
                 <div className="flex items-center gap-2 mb-4">
                   <Trophy className="h-5 w-5 text-primary" />
-                  <span className="text-3xl font-black font-['Rajdhani'] text-foreground" data-testid={`profile-points-${player.id}`}>
+                  <span className="text-3xl font-black font-['Rajdhani'] text-foreground" data-testid={`profile-points-${player.discordId}`}>
                     {player.totalPoints}
                   </span>
                   <span className="text-muted-foreground">Total Points</span>

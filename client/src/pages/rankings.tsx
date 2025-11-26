@@ -93,7 +93,7 @@ export default function Rankings() {
           ) : displayPlayers && displayPlayers.length > 0 ? (
             displayPlayers.map((player, index) => (
               <PlayerRankCard
-                key={player.id}
+                key={player.discordId}
                 player={player}
                 rank={index + 1}
                 gameMode={activeGameMode}

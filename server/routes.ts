@@ -1,19 +1,14 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { z } from "zod";
-import { gameModes, insertPlayerSchema } from "@shared/schema";
+import { gameModes } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Seed initial data if database is empty
-  await storage.seedInitialData();
-  
   // Get rankings by game mode
   app.get("/api/rankings/:gameMode", async (req, res) => {
     try {
       const { gameMode } = req.params;
       
-      // Validate game mode
       const validGameModes = [...gameModes];
       if (!validGameModes.includes(gameMode as any)) {
         return res.status(400).json({ 
@@ -89,37 +84,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create a new player
-  app.post("/api/players", async (req, res) => {
+  // Get player count
+  app.get("/api/stats/player-count", async (req, res) => {
     try {
-      const validatedData = insertPlayerSchema.parse(req.body);
-      const player = await storage.createPlayer(validatedData);
-      res.status(201).json(player);
+      const count = await storage.getPlayerCount();
+      res.json({ count });
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({ error: "Invalid player data", details: error.errors });
-      }
-      console.error("Error creating player:", error);
-      res.status(500).json({ error: "Failed to create player" });
-    }
-  });
-
-  // Update a player
-  app.patch("/api/players/:id", async (req, res) => {
-    try {
-      const { id } = req.params;
-      const updates = req.body;
-      
-      const player = await storage.updatePlayer(id, updates);
-      
-      if (!player) {
-        return res.status(404).json({ error: "Player not found" });
-      }
-
-      res.json(player);
-    } catch (error) {
-      console.error("Error updating player:", error);
-      res.status(500).json({ error: "Failed to update player" });
+      console.error("Error fetching player count:", error);
+      res.status(500).json({ error: "Failed to fetch player count" });
     }
   });
 

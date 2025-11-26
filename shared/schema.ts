@@ -1,4 +1,4 @@
-import { pgTable, text, varchar, integer, jsonb } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, serial, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -24,16 +24,16 @@ export const tierLevels = [
 export type TierLevel = typeof tierLevels[number] | null;
 
 export const tierPoints: Record<string, number> = {
-  "HT1": 60,  // High Tier 1 (höchstes)
-  "LT1": 45,  // Low Tier 1
-  "HT2": 30,  // High Tier 2
-  "LT2": 20,  // Low Tier 2
-  "HT3": 10,  // High Tier 3
-  "LT3": 6,   // Low Tier 3
-  "HT4": 4,   // High Tier 4
-  "LT4": 3,   // Low Tier 4
-  "HT5": 2,   // High Tier 5
-  "LT5": 1,   // Low Tier 5 (niedrigstes)
+  "HT1": 60,
+  "LT1": 45,
+  "HT2": 30,
+  "LT2": 20,
+  "HT3": 10,
+  "LT3": 6,
+  "HT4": 4,
+  "LT4": 3,
+  "HT5": 2,
+  "LT5": 1,
 };
 
 export const regions = ["NA", "EU", "AS", "SA", "OC"] as const;
@@ -49,41 +49,45 @@ export const combatTitles = [
 
 export type CombatTitle = typeof combatTitles[number];
 
-export const players = pgTable("players", {
-  id: varchar("id", { length: 20 }).primaryKey(), // Discord ID
-  username: varchar("username", { length: 16 }).notNull().unique(),
-  region: varchar("region", { length: 2 }).notNull(),
-  totalPoints: integer("total_points").notNull().default(0),
-  combatTitle: varchar("combat_title", { length: 50 }).notNull(),
-  avatarUrl: text("avatar_url"),
-  tiers: jsonb("tiers").notNull().$type<Record<GameMode, TierLevel>>()
+export const playerRanks = pgTable("player_ranks", {
+  id: serial("id").primaryKey(),
+  discordId: varchar("discord_id", { length: 50 }).notNull(),
+  minecraftName: varchar("minecraft_name", { length: 50 }).notNull(),
+  minecraftUuid: varchar("minecraft_uuid", { length: 50 }),
+  gamemode: varchar("gamemode", { length: 20 }).notNull(),
+  rankName: varchar("rank_name", { length: 10 }).notNull(),
+  rankPoints: integer("rank_points").notNull(),
+  region: varchar("region", { length: 10 }),
+  testerId: varchar("tester_id", { length: 50 }),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow()
 });
 
-export type Player = typeof players.$inferSelect;
-export type InsertPlayer = typeof players.$inferInsert;
+export type PlayerRank = typeof playerRanks.$inferSelect;
+export type InsertPlayerRank = typeof playerRanks.$inferInsert;
 
-export const insertPlayerSchema = createInsertSchema(players, {
-  id: z.string().min(17).max(20), // Discord ID
-  username: z.string().min(1).max(16),
-  region: z.enum(regions),
-  totalPoints: z.number().int().min(0),
-  combatTitle: z.enum(combatTitles),
-  avatarUrl: z.string().optional(),
-  tiers: z.object({
-    overall: z.enum(tierLevels).nullable(),
-    ltm: z.enum(tierLevels).nullable(),
-    crystal: z.enum(tierLevels).nullable(),
-    uhc: z.enum(tierLevels).nullable(),
-    pot: z.enum(tierLevels).nullable(),
-    nethop: z.enum(tierLevels).nullable(),
-    smp: z.enum(tierLevels).nullable(),
-    sword: z.enum(tierLevels).nullable(),
-    axe: z.enum(tierLevels).nullable(),
-    mace: z.enum(tierLevels).nullable()
-  })
-});
+export const insertPlayerRankSchema = createInsertSchema(playerRanks, {
+  discordId: z.string().min(1),
+  minecraftName: z.string().min(1).max(50),
+  minecraftUuid: z.string().optional(),
+  gamemode: z.string().min(1),
+  rankName: z.enum(tierLevels),
+  rankPoints: z.number().int().min(0),
+  region: z.enum(regions).optional(),
+  testerId: z.string().optional()
+}).omit({ id: true, createdAt: true, updatedAt: true });
 
-export type InsertPlayerInput = z.infer<typeof insertPlayerSchema>;
+export type InsertPlayerRankInput = z.infer<typeof insertPlayerRankSchema>;
+
+export interface Player {
+  discordId: string;
+  username: string;
+  region: string | null;
+  totalPoints: number;
+  combatTitle: CombatTitle;
+  avatarUrl: string | null;
+  tiers: Record<GameMode, TierLevel>;
+}
 
 export interface GameModeInfo {
   id: GameMode;

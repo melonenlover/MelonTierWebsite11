@@ -65,7 +65,7 @@ export function PlayerRankCard({ player, rank, gameMode }: PlayerRankCardProps) 
     });
 
   return (
-    <Link href={`/player/${player.id}`}>
+    <Link href={`/player/${player.discordId}`}>
       <Card
         className={cn(
           "hover-elevate active-elevate-2 transition-all cursor-pointer",
@@ -74,13 +74,13 @@ export function PlayerRankCard({ player, rank, gameMode }: PlayerRankCardProps) 
           rank === 2 && "border-silver bg-gradient-to-br from-silver/5 to-transparent",
           rank === 3 && "border-bronze bg-gradient-to-br from-bronze/5 to-transparent"
         )}
-        data-testid={`player-card-${player.id}`}
+        data-testid={`player-card-${player.discordId}`}
       >
         <div className={cn("p-6", isTopThree && "p-8")}>
           <div className="flex gap-4 md:gap-6 items-start">
             {getRankBadge()}
             
-            <Avatar className={cn(isTopThree ? "h-20 w-20" : "h-16 w-16")} data-testid={`avatar-${player.id}`}>
+            <Avatar className={cn(isTopThree ? "h-20 w-20" : "h-16 w-16")} data-testid={`avatar-${player.discordId}`}>
               <AvatarImage src={player.avatarUrl ?? undefined} alt={player.username} />
               <AvatarFallback className="text-lg font-semibold bg-primary/20 text-primary">
                 {player.username.slice(0, 2).toUpperCase()}
@@ -93,11 +93,11 @@ export function PlayerRankCard({ player, rank, gameMode }: PlayerRankCardProps) 
                   <h3 className={cn(
                     "font-bold tracking-tight",
                     isTopThree ? "text-2xl" : "text-xl"
-                  )} data-testid={`player-name-${player.id}`}>
+                  )} data-testid={`player-name-${player.discordId}`}>
                     {player.username}
                   </h3>
                   <div className="flex items-center gap-2 mt-1">
-                    <Badge variant="secondary" className="text-xs font-medium uppercase tracking-wide gap-1.5" data-testid={`combat-title-${player.id}`}>
+                    <Badge variant="secondary" className="text-xs font-medium uppercase tracking-wide gap-1.5" data-testid={`combat-title-${player.discordId}`}>
                       {(() => {
                         const Icon = getCombatTitleIcon();
                         return <Icon className="h-3 w-3" />;
@@ -107,13 +107,13 @@ export function PlayerRankCard({ player, rank, gameMode }: PlayerRankCardProps) 
                     <span className={cn(
                       "font-bold font-['Rajdhani']",
                       isTopThree ? "text-lg" : "text-base"
-                    )} data-testid={`points-${player.id}`}>
+                    )} data-testid={`points-${player.discordId}`}>
                       {player.totalPoints} pts
                     </span>
                   </div>
                 </div>
                 
-                <Badge variant="outline" className="text-xs w-fit" data-testid={`region-${player.id}`}>
+                <Badge variant="outline" className="text-xs w-fit" data-testid={`region-${player.discordId}`}>
                   {player.region}
                 </Badge>
               </div>
