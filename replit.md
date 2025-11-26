@@ -1,21 +1,28 @@
-# MelonTier - Player Ranking Platform
+# MCTIERS - Player Ranking Platform
 
 ## Overview
-MelonTier is a competitive tier-based ranking platform inspired by mctiers.com, designed to showcase player rankings across multiple game modes with a modern, gaming-oriented aesthetic. The platform displays player leaderboards, tier badges, combat achievements, and detailed player profiles.
+MCTIERS is a competitive tier-based ranking platform inspired by mctiers.com, designed to showcase Minecraft PvP player rankings across multiple game modes with a modern, gaming-oriented aesthetic. The platform displays player leaderboards, tier badges, combat achievements, and detailed player profiles.
 
 ## Current State
 The MVP is fully functional with all core features implemented:
-- ✅ Player leaderboard with top 10+ players
-- ✅ Multiple game mode categories (9 modes: Overall, Melon, Watermelon, Cantaloupe, Honeydew, Sweet, Garden, Summer, Tropical)
-- ✅ Player search functionality with navigation to profiles
-- ✅ Player profile pages with tier badges, combat achievements, and server info
-- ✅ Responsive tier badge system with visual hierarchy
-- ✅ Top 3 player special styling with gold/silver/bronze treatments
-- ✅ Game mode navigation with horizontal scrollable pills
-- ✅ Modern, clean UI with card-based layouts
-- ✅ Dark mode support
+- Player leaderboard with top 10+ players
+- Multiple game mode categories (10 modes: Overall, LTMs, Vanilla, UHC, Pot, NethOP, SMP, Sword, Axe, Mace)
+- Player search functionality with navigation to profiles
+- Player profile pages with tier badges, combat achievements, and server info
+- Responsive tier badge system with visual hierarchy
+- Top 3 player special styling with gold/silver/bronze treatments
+- Game mode navigation with horizontal scrollable pills
+- Modern, clean UI with card-based layouts
+- Dark mode support
 
 ## Recent Changes (November 26, 2025)
+### Game Modes Update
+- Updated all game modes to match mctiers.com:
+  - Overall, LTMs, Vanilla, UHC, Pot, NethOP, SMP, Sword, Axe, Mace
+- Updated player usernames to realistic Minecraft PvP names
+- Changed branding from MelonTier to MCTIERS
+- Updated server IP to mcpvp.club
+
 ### Frontend Implementation
 - Created complete schema with Player, TierLevel, GameMode, and Region types
 - Built all React components:
@@ -25,7 +32,6 @@ The MVP is fully functional with all core features implemented:
   - Game mode navigation pills
   - Player rank cards with special top-3 styling
   - Tier badge system with icons
-- Configured design tokens for gaming aesthetic (melon-themed green colors)
 - Added Google Fonts: Inter and Rajdhani for competitive look
 - Implemented gold/silver/bronze color tokens and gradients
 

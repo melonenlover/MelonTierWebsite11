@@ -20,258 +20,273 @@ export class MemStorage implements IStorage {
   private initializeMockData() {
     const mockPlayers: Array<Omit<Player, "id"> & { tiers: Record<GameMode, TierLevel> }> = [
       {
-        username: "MelonKing",
+        username: "Marlowww",
         region: "NA",
-        totalPoints: 485,
+        totalPoints: 405,
         combatTitle: "Combat Grandmaster",
         tiers: {
           overall: "HT1",
-          melon: "HT1",
-          watermelon: "HT1",
-          cantaloupe: "LT1",
-          honeydew: "LT1",
-          sweet: "HT2",
-          garden: "HT1",
-          summer: "LT2",
-          tropical: "LT1"
+          ltm: null,
+          vanilla: "HT1",
+          uhc: "LT1",
+          pot: "LT1",
+          nethop: "LT1",
+          smp: "HT1",
+          sword: "LT1",
+          axe: "LT1",
+          mace: "LT1"
         }
       },
       {
-        username: "FruitNinja",
-        region: "EU",
-        totalPoints: 412,
+        username: "ItzRealMe",
+        region: "NA",
+        totalPoints: 330,
         combatTitle: "Combat Master",
         tiers: {
           overall: "HT1",
-          melon: "HT2",
-          watermelon: "HT1",
-          cantaloupe: "HT1",
-          honeydew: "LT2",
-          sweet: "HT1",
-          garden: "LT1",
-          summer: "HT2",
-          tropical: "LT3"
+          ltm: null,
+          vanilla: "HT1",
+          uhc: "LT2",
+          pot: "HT1",
+          nethop: "HT1",
+          smp: "HT1",
+          sword: "HT2",
+          axe: "LT2",
+          mace: "LT2"
         }
       },
       {
-        username: "SweetSlice",
+        username: "Swight",
         region: "NA",
-        totalPoints: 387,
+        totalPoints: 290,
         combatTitle: "Combat Master",
         tiers: {
           overall: "HT2",
-          melon: "HT1",
-          watermelon: "LT2",
-          cantaloupe: "HT2",
-          honeydew: "HT1",
-          sweet: "HT1",
-          garden: "LT2",
-          summer: "HT3",
-          tropical: "LT2"
+          ltm: null,
+          vanilla: "HT3",
+          uhc: "HT1",
+          pot: "LT2",
+          nethop: "HT2",
+          smp: "HT1",
+          sword: "LT2",
+          axe: "HT1",
+          mace: "HT3"
         }
       },
       {
-        username: "GardenWarrior",
-        region: "AS",
-        totalPoints: 356,
+        username: "coldified",
+        region: "EU",
+        totalPoints: 256,
         combatTitle: "Combat Ace",
         tiers: {
           overall: "HT2",
-          melon: "LT3",
-          watermelon: "HT2",
-          cantaloupe: "LT1",
-          honeydew: "HT2",
-          sweet: "LT2",
-          garden: "HT1",
-          summer: "LT1",
-          tropical: "HT3"
+          ltm: null,
+          vanilla: "LT3",
+          uhc: "HT2",
+          pot: "HT2",
+          nethop: "LT2",
+          smp: "HT1",
+          sword: "LT2",
+          axe: "HT2",
+          mace: "HT2"
         }
       },
       {
-        username: "TropicalStorm",
-        region: "SA",
-        totalPoints: 329,
+        username: "Kylaz",
+        region: "NA",
+        totalPoints: 222,
         combatTitle: "Combat Ace",
         tiers: {
           overall: "HT3",
-          melon: "LT2",
-          watermelon: "LT3",
-          cantaloupe: "HT3",
-          honeydew: "LT3",
-          sweet: "HT2",
-          garden: "LT1",
-          summer: "HT1",
-          tropical: "HT1"
+          ltm: null,
+          vanilla: "LT3",
+          uhc: "LT3",
+          pot: "HT1",
+          nethop: "HT1",
+          smp: "LT3",
+          sword: "HT1",
+          axe: "LT2",
+          mace: null
         }
       },
       {
-        username: "HoneyChampion",
+        username: "BlvckWlf",
         region: "EU",
-        totalPoints: 298,
+        totalPoints: 206,
         combatTitle: "Combat Ace",
         tiers: {
           overall: "HT3",
-          melon: "LT4",
-          watermelon: "HT3",
-          cantaloupe: "LT2",
-          honeydew: "HT1",
-          sweet: "LT3",
-          garden: "HT2",
-          summer: "LT2",
-          tropical: "LT4"
+          ltm: null,
+          vanilla: "LT3",
+          uhc: "HT1",
+          pot: "LT2",
+          nethop: "LT3",
+          smp: "HT1",
+          sword: "HT3",
+          axe: "HT2",
+          mace: "HT3"
         }
       },
       {
-        username: "SummerVibes",
-        region: "OC",
-        totalPoints: 276,
-        combatTitle: "Combat Expert",
-        tiers: {
-          overall: "HT4",
-          melon: "HT3",
-          watermelon: "LT4",
-          cantaloupe: "HT2",
-          honeydew: "LT2",
-          sweet: "LT4",
-          garden: "LT3",
-          summer: "HT1",
-          tropical: "HT2"
-        }
-      },
-      {
-        username: "CantaloupeCrusher",
-        region: "NA",
-        totalPoints: 254,
-        combatTitle: "Combat Expert",
-        tiers: {
-          overall: "HT4",
-          melon: "LT3",
-          watermelon: "HT4",
-          cantaloupe: "HT1",
-          honeydew: "HT3",
-          sweet: "LT3",
-          garden: "LT4",
-          summer: "HT3",
-          tropical: "LT3"
-        }
-      },
-      {
-        username: "WatermelonWizard",
+        username: "janekv",
         region: "EU",
-        totalPoints: 231,
+        totalPoints: 199,
+        combatTitle: "Combat Ace",
+        tiers: {
+          overall: "HT3",
+          ltm: null,
+          vanilla: "HT4",
+          uhc: "LT2",
+          pot: "HT1",
+          nethop: "HT3",
+          smp: "LT1",
+          sword: "HT2",
+          axe: "HT3",
+          mace: null
+        }
+      },
+      {
+        username: "Lurrn",
+        region: "EU",
+        totalPoints: 186,
+        combatTitle: "Combat Ace",
+        tiers: {
+          overall: "HT4",
+          ltm: null,
+          vanilla: "HT2",
+          uhc: "LT3",
+          pot: "HT1",
+          nethop: "HT1",
+          smp: null,
+          sword: "LT2",
+          axe: "LT4",
+          mace: null
+        }
+      },
+      {
+        username: "yMiau",
+        region: "EU",
+        totalPoints: 177,
+        combatTitle: "Combat Ace",
+        tiers: {
+          overall: "HT4",
+          ltm: null,
+          vanilla: "LT3",
+          uhc: "LT1",
+          pot: "LT3",
+          nethop: "LT3",
+          smp: "LT1",
+          sword: "LT3",
+          axe: "HT2",
+          mace: "LT3"
+        }
+      },
+      {
+        username: "ninorc15",
+        region: "EU",
+        totalPoints: 171,
+        combatTitle: "Combat Ace",
+        tiers: {
+          overall: "LT1",
+          ltm: null,
+          vanilla: "LT3",
+          uhc: "HT2",
+          pot: "LT2",
+          nethop: "LT2",
+          smp: "LT1",
+          sword: "LT2",
+          axe: "LT2",
+          mace: "HT3"
+        }
+      },
+      {
+        username: "PvPLegend",
+        region: "NA",
+        totalPoints: 158,
         combatTitle: "Combat Expert",
         tiers: {
           overall: "LT1",
-          melon: "HT4",
-          watermelon: "HT1",
-          cantaloupe: "LT3",
-          honeydew: "LT4",
-          sweet: "HT3",
-          garden: "HT3",
-          summer: "LT4",
-          tropical: "HT4"
+          ltm: "HT2",
+          vanilla: "HT3",
+          uhc: "LT2",
+          pot: "HT3",
+          nethop: "LT4",
+          smp: "HT2",
+          sword: "HT4",
+          axe: "LT3",
+          mace: "LT4"
         }
       },
       {
-        username: "MelonMaster92",
+        username: "CrystalPvP",
+        region: "EU",
+        totalPoints: 145,
+        combatTitle: "Combat Expert",
+        tiers: {
+          overall: "LT2",
+          ltm: "LT3",
+          vanilla: "LT4",
+          uhc: "HT3",
+          pot: "LT3",
+          nethop: "HT4",
+          smp: "LT2",
+          sword: "LT3",
+          axe: "HT4",
+          mace: "HT4"
+        }
+      },
+      {
+        username: "NethGod",
         region: "AS",
-        totalPoints: 218,
-        combatTitle: "Combat Specialist",
-        tiers: {
-          overall: "LT1",
-          melon: "HT2",
-          watermelon: "LT2",
-          cantaloupe: "LT4",
-          honeydew: "HT4",
-          sweet: "LT2",
-          garden: "HT4",
-          summer: "HT2",
-          tropical: "LT2"
-        }
-      },
-      {
-        username: "JuicyDefender",
-        region: "NA",
-        totalPoints: 197,
+        totalPoints: 132,
         combatTitle: "Combat Specialist",
         tiers: {
           overall: "LT2",
-          melon: "LT2",
-          watermelon: "HT3",
-          cantaloupe: "HT4",
-          honeydew: "LT3",
-          sweet: "HT4",
-          garden: "LT2",
-          summer: "LT3",
-          tropical: "HT3"
+          ltm: null,
+          vanilla: "HT4",
+          uhc: "LT4",
+          pot: "HT4",
+          nethop: "HT2",
+          smp: "LT3",
+          sword: "LT4",
+          axe: "LT4",
+          mace: "LT3"
         }
       },
       {
-        username: "SeedSlayer",
-        region: "EU",
-        totalPoints: 175,
-        combatTitle: "Combat Specialist",
-        tiers: {
-          overall: "LT2",
-          melon: "HT3",
-          watermelon: "LT3",
-          cantaloupe: "HT3",
-          honeydew: "HT3",
-          sweet: "LT4",
-          garden: "LT4",
-          summer: "HT4",
-          tropical: "LT4"
-        }
-      },
-      {
-        username: "RipeRavager",
+        username: "AxeMaster",
         region: "SA",
-        totalPoints: 156,
+        totalPoints: 119,
         combatTitle: "Combat Specialist",
         tiers: {
           overall: "LT3",
-          melon: "LT4",
-          watermelon: "HT2",
-          cantaloupe: "LT4",
-          honeydew: "LT4",
-          sweet: "HT4",
-          garden: "HT4",
-          summer: "LT4",
-          tropical: "HT2"
+          ltm: "HT4",
+          vanilla: "LT3",
+          uhc: "HT4",
+          pot: "LT4",
+          nethop: "LT4",
+          smp: "HT4",
+          sword: "HT3",
+          axe: "HT1",
+          mace: "LT4"
         }
       },
       {
-        username: "GreenGuardian",
+        username: "PotKing",
         region: "OC",
-        totalPoints: 142,
-        combatTitle: "Combat Specialist",
-        tiers: {
-          overall: "LT3",
-          melon: "LT3",
-          watermelon: "LT4",
-          cantaloupe: "HT4",
-          honeydew: "HT2",
-          sweet: "LT3",
-          garden: "HT2",
-          summer: "HT3",
-          tropical: "LT4"
-        }
-      },
-      {
-        username: "FreshPicker",
-        region: "AS",
-        totalPoints: 128,
+        totalPoints: 108,
         combatTitle: "Combat Specialist",
         tiers: {
           overall: "LT4",
-          melon: "HT4",
-          watermelon: "HT4",
-          cantaloupe: "LT3",
-          honeydew: "LT3",
-          sweet: "LT4",
-          garden: "LT3",
-          summer: "HT4",
-          tropical: "HT4"
+          ltm: "LT4",
+          vanilla: "LT4",
+          uhc: "LT3",
+          pot: "HT2",
+          nethop: "LT3",
+          smp: "LT4",
+          sword: "HT4",
+          axe: "HT4",
+          mace: "HT4"
         }
       }
     ];

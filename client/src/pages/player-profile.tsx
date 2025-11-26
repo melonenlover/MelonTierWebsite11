@@ -215,7 +215,7 @@ export default function PlayerProfile() {
                 <div>
                   <div className="text-sm text-muted-foreground mb-1">Server IP</div>
                   <code className="px-3 py-1.5 rounded-md bg-muted text-sm font-mono font-semibold">
-                    melon.gg
+                    mcpvp.club
                   </code>
                 </div>
                 <Separator />

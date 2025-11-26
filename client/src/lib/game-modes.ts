@@ -1,14 +1,16 @@
 import { GameMode, GameModeInfo } from "@shared/schema";
 import { 
   Sword, 
-  Droplet, 
+  Axe,
   Flame, 
   Zap, 
-  Leaf, 
-  Sun, 
-  Cloud, 
+  Shield, 
+  Target, 
+  Users, 
   Star,
-  Trophy
+  Trophy,
+  Sparkles,
+  Hammer
 } from "lucide-react";
 
 export const gameModeInfo: Record<GameMode, GameModeInfo> = {
@@ -17,45 +19,50 @@ export const gameModeInfo: Record<GameMode, GameModeInfo> = {
     name: "Overall",
     icon: "Trophy"
   },
-  melon: {
-    id: "melon",
-    name: "Melon",
-    icon: "Droplet"
+  ltm: {
+    id: "ltm",
+    name: "LTMs",
+    icon: "Sparkles"
   },
-  watermelon: {
-    id: "watermelon",
-    name: "Watermelon",
-    icon: "Droplet"
+  vanilla: {
+    id: "vanilla",
+    name: "Vanilla",
+    icon: "Shield"
   },
-  cantaloupe: {
-    id: "cantaloupe",
-    name: "Cantaloupe",
-    icon: "Sun"
+  uhc: {
+    id: "uhc",
+    name: "UHC",
+    icon: "Flame"
   },
-  honeydew: {
-    id: "honeydew",
-    name: "Honeydew",
-    icon: "Leaf"
+  pot: {
+    id: "pot",
+    name: "Pot",
+    icon: "Zap"
   },
-  sweet: {
-    id: "sweet",
-    name: "Sweet",
-    icon: "Star"
+  nethop: {
+    id: "nethop",
+    name: "NethOP",
+    icon: "Target"
   },
-  garden: {
-    id: "garden",
-    name: "Garden",
-    icon: "Leaf"
+  smp: {
+    id: "smp",
+    name: "SMP",
+    icon: "Users"
   },
-  summer: {
-    id: "summer",
-    name: "Summer",
-    icon: "Sun"
+  sword: {
+    id: "sword",
+    name: "Sword",
+    icon: "Sword"
   },
-  tropical: {
-    id: "tropical",
-    name: "Tropical",
-    icon: "Cloud"
+  axe: {
+    id: "axe",
+    name: "Axe",
+    icon: "Axe"
+  },
+  mace: {
+    id: "mace",
+    name: "Mace",
+    icon: "Hammer"
   }
 };
 
@@ -63,14 +70,16 @@ export const getGameModeIcon = (gameMode: GameMode) => {
   const iconName = gameModeInfo[gameMode].icon;
   const iconMap: Record<string, any> = {
     Trophy,
-    Droplet,
+    Sparkles,
+    Shield,
     Flame,
     Zap,
-    Leaf,
-    Sun,
-    Cloud,
-    Star,
-    Sword
+    Target,
+    Users,
+    Sword,
+    Axe,
+    Hammer,
+    Star
   };
   return iconMap[iconName] || Trophy;
 };

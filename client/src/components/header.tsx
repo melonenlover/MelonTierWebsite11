@@ -1,4 +1,4 @@
-import { Search, Loader2, Cherry } from "lucide-react";
+import { Search, Loader2, Swords } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -25,7 +25,6 @@ export function Header({ onSearch, isSearching }: HeaderProps) {
     e.preventDefault();
     if (searchQuery.trim()) {
       onSearch?.(searchQuery.trim());
-      // Navigate to first result if found
       if (searchResults && searchResults.length > 0) {
         setLocation(`/player/${searchResults[0].id}`);
         setSearchQuery("");
@@ -40,11 +39,11 @@ export function Header({ onSearch, isSearching }: HeaderProps) {
           <Link href="/">
             <div className="flex items-center gap-3 cursor-pointer hover-elevate active-elevate-2 px-3 py-2 rounded-md transition-all" data-testid="logo">
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 shadow-md">
-                <Cherry className="h-6 w-6 text-primary-foreground" />
+                <Swords className="h-6 w-6 text-primary-foreground" />
               </div>
               <div>
                 <h1 className="text-2xl font-black font-['Rajdhani'] tracking-tight text-foreground">
-                  MelonTier
+                  MCTIERS
                 </h1>
                 <p className="text-xs text-muted-foreground uppercase tracking-wide">Rankings</p>
               </div>
@@ -72,7 +71,7 @@ export function Header({ onSearch, isSearching }: HeaderProps) {
           <div className="flex items-center gap-2">
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted/50 border" data-testid="server-info">
               <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs font-medium text-muted-foreground">melon.gg</span>
+              <span className="text-xs font-medium text-muted-foreground">mcpvp.club</span>
             </div>
           </div>
         </div>
