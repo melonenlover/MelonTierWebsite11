@@ -58,7 +58,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get player by ID
+  // Get player by ID (Discord ID)
   app.get("/api/players/:id", async (req, res) => {
     try {
       const { id } = req.params;
@@ -72,6 +72,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching player:", error);
       res.status(500).json({ error: "Failed to fetch player" });
+    }
+  });
+
+  // Get all available game modes
+  app.get("/api/gamemodes", async (req, res) => {
+    try {
+      const gameModesList = gameModes.filter(mode => mode !== "overall").map(mode => ({
+        id: mode,
+        name: mode.charAt(0).toUpperCase() + mode.slice(1)
+      }));
+      res.json(gameModesList);
+    } catch (error) {
+      console.error("Error fetching game modes:", error);
+      res.status(500).json({ error: "Failed to fetch game modes" });
     }
   });
 
