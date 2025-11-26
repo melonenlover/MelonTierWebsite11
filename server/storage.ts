@@ -1,6 +1,18 @@
-import { type Player, type InsertPlayerInput, type GameMode, type TierLevel, players, tierPoints } from "@shared/schema";
+import { type Player, type InsertPlayerInput, type GameMode, type TierLevel, players, tierPoints, gameModes } from "@shared/schema";
 import { db } from "./db";
 import { eq, ilike, desc } from "drizzle-orm";
+
+function calculateTotalPoints(tiers: Record<GameMode, TierLevel>): number {
+  let total = 0;
+  for (const mode of gameModes) {
+    if (mode === "overall") continue;
+    const tier = tiers[mode];
+    if (tier) {
+      total += tierPoints[tier] || 0;
+    }
+  }
+  return total;
+}
 
 export interface IStorage {
   getAllPlayers(): Promise<Player[]>;
@@ -8,6 +20,7 @@ export interface IStorage {
   getPlayerById(id: string): Promise<Player | undefined>;
   searchPlayers(query: string): Promise<Player[]>;
   createPlayer(player: InsertPlayerInput): Promise<Player>;
+  updatePlayer(id: string, updates: Partial<InsertPlayerInput>): Promise<Player | undefined>;
   getPlayerCount(): Promise<number>;
   seedInitialData(): Promise<void>;
 }
@@ -53,7 +66,30 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createPlayer(insertPlayer: InsertPlayerInput): Promise<Player> {
-    const result = await db.insert(players).values(insertPlayer).returning();
+    const totalPoints = calculateTotalPoints(insertPlayer.tiers);
+    const result = await db.insert(players).values({
+      ...insertPlayer,
+      totalPoints
+    }).returning();
+    return result[0];
+  }
+
+  async updatePlayer(id: string, updates: Partial<InsertPlayerInput>): Promise<Player | undefined> {
+    const existing = await this.getPlayerById(id);
+    if (!existing) return undefined;
+
+    const newTiers = updates.tiers || existing.tiers;
+    const totalPoints = calculateTotalPoints(newTiers);
+
+    const result = await db
+      .update(players)
+      .set({
+        ...updates,
+        totalPoints
+      })
+      .where(eq(players.id, id))
+      .returning();
+    
     return result[0];
   }
 
