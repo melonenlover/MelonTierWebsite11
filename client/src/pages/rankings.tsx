@@ -15,11 +15,13 @@ export default function Rankings() {
 
   const { data: players, isLoading, error } = useQuery<Player[]>({
     queryKey: [`/api/rankings/${activeGameMode}`],
+    refetchInterval: 30000,
   });
 
   const { data: searchResults, isLoading: isSearching } = useQuery<Player[]>({
     queryKey: [`/api/players/search/${encodeURIComponent(searchQuery)}`],
     enabled: searchQuery.length > 0,
+    refetchInterval: 30000,
   });
 
   const displayPlayers = searchQuery ? searchResults : players;
