@@ -1,24 +1,81 @@
-import { type Player, type InsertPlayer, type GameMode, type TierLevel } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { type Player, type InsertPlayerInput, type GameMode, type TierLevel, players } from "@shared/schema";
+import { db } from "./db";
+import { eq, ilike, desc } from "drizzle-orm";
 
 export interface IStorage {
   getAllPlayers(): Promise<Player[]>;
   getPlayersByGameMode(gameMode: GameMode): Promise<Player[]>;
   getPlayerById(id: string): Promise<Player | undefined>;
   searchPlayers(query: string): Promise<Player[]>;
-  createPlayer(player: InsertPlayer): Promise<Player>;
+  createPlayer(player: InsertPlayerInput): Promise<Player>;
+  getPlayerCount(): Promise<number>;
+  seedInitialData(): Promise<void>;
 }
 
-export class MemStorage implements IStorage {
-  private players: Map<string, Player>;
-
-  constructor() {
-    this.players = new Map();
-    this.initializeMockData();
+export class DatabaseStorage implements IStorage {
+  async getAllPlayers(): Promise<Player[]> {
+    return await db.select().from(players).orderBy(desc(players.totalPoints));
   }
 
-  private initializeMockData() {
-    const mockPlayers: Array<Omit<Player, "id"> & { tiers: Record<GameMode, TierLevel> }> = [
+  async getPlayersByGameMode(gameMode: GameMode): Promise<Player[]> {
+    const allPlayers = await db.select().from(players);
+    
+    if (gameMode === "overall") {
+      return allPlayers.sort((a, b) => b.totalPoints - a.totalPoints);
+    }
+
+    const playersWithTier = allPlayers
+      .filter(p => p.tiers[gameMode] !== null)
+      .sort((a, b) => {
+        const tierA = a.tiers[gameMode] as string;
+        const tierB = b.tiers[gameMode] as string;
+        
+        const getTierScore = (tier: string): number => {
+          if (tier.startsWith("HT")) {
+            return 100 - parseInt(tier.slice(2));
+          }
+          return 50 - parseInt(tier.slice(2));
+        };
+        
+        return getTierScore(tierB) - getTierScore(tierA);
+      });
+
+    return playersWithTier;
+  }
+
+  async getPlayerById(id: string): Promise<Player | undefined> {
+    const result = await db.select().from(players).where(eq(players.id, id));
+    return result[0];
+  }
+
+  async searchPlayers(query: string): Promise<Player[]> {
+    return await db
+      .select()
+      .from(players)
+      .where(ilike(players.username, `%${query}%`))
+      .orderBy(desc(players.totalPoints));
+  }
+
+  async createPlayer(insertPlayer: InsertPlayerInput): Promise<Player> {
+    const result = await db.insert(players).values(insertPlayer).returning();
+    return result[0];
+  }
+
+  async getPlayerCount(): Promise<number> {
+    const result = await db.select().from(players);
+    return result.length;
+  }
+
+  async seedInitialData(): Promise<void> {
+    const count = await this.getPlayerCount();
+    if (count > 0) {
+      console.log(`Database already has ${count} players, skipping seed`);
+      return;
+    }
+
+    console.log("Seeding initial player data...");
+    
+    const mockPlayers: InsertPlayerInput[] = [
       {
         username: "Marlowww",
         region: "NA",
@@ -291,73 +348,12 @@ export class MemStorage implements IStorage {
       }
     ];
 
-    mockPlayers.forEach((playerData) => {
-      const id = randomUUID();
-      const player: Player = { ...playerData, id };
-      this.players.set(id, player);
-    });
-  }
-
-  async getAllPlayers(): Promise<Player[]> {
-    return Array.from(this.players.values())
-      .sort((a, b) => b.totalPoints - a.totalPoints);
-  }
-
-  async getPlayersByGameMode(gameMode: GameMode): Promise<Player[]> {
-    const allPlayers = Array.from(this.players.values());
-    
-    if (gameMode === "overall") {
-      return allPlayers.sort((a, b) => b.totalPoints - a.totalPoints);
+    for (const player of mockPlayers) {
+      await this.createPlayer(player);
     }
-
-    const playersWithTier = allPlayers
-      .filter(p => p.tiers[gameMode] !== null)
-      .map(p => ({
-        ...p,
-        gameTier: p.tiers[gameMode] as TierLevel
-      }))
-      .sort((a, b) => {
-        const tierA = a.gameTier as string;
-        const tierB = b.gameTier as string;
-        
-        const getTierScore = (tier: string): number => {
-          if (tier.startsWith("HT")) {
-            return 100 - parseInt(tier.slice(2));
-          }
-          return 50 - parseInt(tier.slice(2));
-        };
-        
-        return getTierScore(tierB) - getTierScore(tierA);
-      });
-
-    return playersWithTier;
-  }
-
-  async getPlayerById(id: string): Promise<Player | undefined> {
-    return this.players.get(id);
-  }
-
-  async searchPlayers(query: string): Promise<Player[]> {
-    const searchTerm = query.toLowerCase();
-    return Array.from(this.players.values())
-      .filter(p => p.username.toLowerCase().includes(searchTerm))
-      .sort((a, b) => b.totalPoints - a.totalPoints);
-  }
-
-  async createPlayer(insertPlayer: InsertPlayer): Promise<Player> {
-    const id = randomUUID();
-    const player: Player = { 
-      id,
-      username: insertPlayer.username,
-      region: insertPlayer.region,
-      totalPoints: insertPlayer.totalPoints,
-      combatTitle: insertPlayer.combatTitle,
-      tiers: insertPlayer.tiers,
-      avatarUrl: insertPlayer.avatarUrl
-    };
-    this.players.set(id, player);
-    return player;
+    
+    console.log(`Seeded ${mockPlayers.length} players to database`);
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

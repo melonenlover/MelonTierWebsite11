@@ -5,6 +5,9 @@ import { z } from "zod";
 import { gameModes } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Seed initial data if database is empty
+  await storage.seedInitialData();
+  
   // Get rankings by game mode
   app.get("/api/rankings/:gameMode", async (req, res) => {
     try {
