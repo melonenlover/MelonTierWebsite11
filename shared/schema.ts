@@ -18,8 +18,8 @@ export const gameModes = [
 export type GameMode = typeof gameModes[number];
 
 export const tierLevels = [
-  "HT1", "HT2", "HT3", "HT4",
-  "LT1", "LT2", "LT3", "LT4"
+  "HT1", "HT2", "HT3", "HT4", "HT5",
+  "LT1", "LT2", "LT3", "LT4", "LT5"
 ] as const;
 
 export type TierLevel = typeof tierLevels[number] | null;
