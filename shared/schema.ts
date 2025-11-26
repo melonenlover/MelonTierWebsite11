@@ -1,4 +1,4 @@
-import { pgTable, text, varchar, integer, jsonb, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -50,7 +50,7 @@ export const combatTitles = [
 export type CombatTitle = typeof combatTitles[number];
 
 export const players = pgTable("players", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: varchar("id", { length: 20 }).primaryKey(), // Discord ID
   username: varchar("username", { length: 16 }).notNull().unique(),
   region: varchar("region", { length: 2 }).notNull(),
   totalPoints: integer("total_points").notNull().default(0),
@@ -63,6 +63,7 @@ export type Player = typeof players.$inferSelect;
 export type InsertPlayer = typeof players.$inferInsert;
 
 export const insertPlayerSchema = createInsertSchema(players, {
+  id: z.string().min(17).max(20), // Discord ID
   username: z.string().min(1).max(16),
   region: z.enum(regions),
   totalPoints: z.number().int().min(0),
@@ -80,7 +81,7 @@ export const insertPlayerSchema = createInsertSchema(players, {
     axe: z.enum(tierLevels).nullable(),
     mace: z.enum(tierLevels).nullable()
   })
-}).omit({ id: true });
+});
 
 export type InsertPlayerInput = z.infer<typeof insertPlayerSchema>;
 
