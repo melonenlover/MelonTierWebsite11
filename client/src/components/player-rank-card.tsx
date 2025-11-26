@@ -81,7 +81,7 @@ export function PlayerRankCard({ player, rank, gameMode }: PlayerRankCardProps) 
             {getRankBadge()}
             
             <Avatar className={cn(isTopThree ? "h-20 w-20" : "h-16 w-16")} data-testid={`avatar-${player.id}`}>
-              <AvatarImage src={player.avatarUrl} alt={player.username} />
+              <AvatarImage src={player.avatarUrl ?? undefined} alt={player.username} />
               <AvatarFallback className="text-lg font-semibold bg-primary/20 text-primary">
                 {player.username.slice(0, 2).toUpperCase()}
               </AvatarFallback>

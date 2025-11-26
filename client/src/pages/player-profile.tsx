@@ -91,7 +91,7 @@ export default function PlayerProfile() {
           <CardContent className="p-8">
             <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
               <Avatar className="h-32 w-32 shadow-xl border-4 border-background" data-testid={`profile-avatar-${player.id}`}>
-                <AvatarImage src={player.avatarUrl} alt={player.username} />
+                <AvatarImage src={player.avatarUrl ?? undefined} alt={player.username} />
                 <AvatarFallback className="text-4xl font-bold bg-primary/20 text-primary">
                   {player.username.slice(0, 2).toUpperCase()}
                 </AvatarFallback>

@@ -35,8 +35,14 @@ The MVP is fully functional with all core features implemented:
 - Added Google Fonts: Inter and Rajdhani for competitive look
 - Implemented gold/silver/bronze color tokens and gradients
 
+### Database Migration
+- Migrated from in-memory storage to PostgreSQL (Neon)
+- Using Drizzle ORM for type-safe database queries
+- Players table with proper schema (uuid PK, unique username, jsonb tiers)
+- Auto-seeding of initial data when database is empty
+
 ### Backend Implementation
-- Created in-memory storage with 15 mock players
+- Created PostgreSQL storage with 15 initial players
 - Implemented all API endpoints:
   - `GET /api/rankings/:gameMode` - Get rankings by game mode
   - `GET /api/rankings` - Get overall rankings
