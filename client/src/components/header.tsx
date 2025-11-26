@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Player } from "@shared/schema";
+import { Player } from "@shared/types";
 import logoImage from "@assets/b8cc2551e4a846f10d6920ac78dc434c_1764170487384.webp";
 
 interface HeaderProps {
@@ -28,7 +28,7 @@ export function Header({ onSearch, isSearching }: HeaderProps) {
     if (searchQuery.trim()) {
       onSearch?.(searchQuery.trim());
       if (searchResults && searchResults.length > 0) {
-        setLocation(`/player/${searchResults[0].id}`);
+        setLocation(`/player/${searchResults[0].discordId}`);
         setSearchQuery("");
       }
     }

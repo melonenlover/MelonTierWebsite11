@@ -1,4 +1,4 @@
-import { GameMode, TierLevel } from "@shared/schema";
+import { GameMode, TierLevel } from "@shared/types";
 import { getGameModeIcon } from "@/lib/game-modes";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";

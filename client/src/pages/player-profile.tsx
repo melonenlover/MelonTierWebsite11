@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute, Link } from "wouter";
-import { Player, GameMode } from "@shared/schema";
+import { Player, GameMode, getMinecraftAvatarUrl } from "@shared/types";
 import { Header } from "@/components/header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -91,7 +91,10 @@ export default function PlayerProfile() {
           <CardContent className="p-8">
             <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
               <Avatar className="h-32 w-32 shadow-xl border-4 border-background" data-testid={`profile-avatar-${player.discordId}`}>
-                <AvatarImage src={player.avatarUrl ?? undefined} alt={player.username} />
+                <AvatarImage 
+                  src={getMinecraftAvatarUrl(player.username, 128)} 
+                  alt={player.username} 
+                />
                 <AvatarFallback className="text-4xl font-bold bg-primary/20 text-primary">
                   {player.username.slice(0, 2).toUpperCase()}
                 </AvatarFallback>

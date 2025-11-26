@@ -1,4 +1,4 @@
-import { GameMode } from "@shared/schema";
+import { GameMode } from "@shared/types";
 import { gameModeInfo, getGameModeIcon } from "@/lib/game-modes";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";

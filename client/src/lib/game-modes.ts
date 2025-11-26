@@ -1,4 +1,4 @@
-import { GameMode, GameModeInfo } from "@shared/schema";
+import { GameMode, GameModeInfo } from "@shared/types";
 import { 
   Sword, 
   Axe,

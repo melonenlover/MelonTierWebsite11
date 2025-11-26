@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { gameModes } from "@shared/schema";
+import { gameModes } from "@shared/types";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get rankings by game mode

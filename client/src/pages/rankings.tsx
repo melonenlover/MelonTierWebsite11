@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Player, GameMode } from "@shared/schema";
+import { Player, GameMode } from "@shared/types";
 import { Header } from "@/components/header";
 import { GameModeNav } from "@/components/game-mode-nav";
 import { PlayerRankCard } from "@/components/player-rank-card";

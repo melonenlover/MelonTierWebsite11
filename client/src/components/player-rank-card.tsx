@@ -1,4 +1,4 @@
-import { Player, GameMode } from "@shared/schema";
+import { Player, GameMode, getMinecraftAvatarUrl } from "@shared/types";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -81,7 +81,10 @@ export function PlayerRankCard({ player, rank, gameMode }: PlayerRankCardProps) 
             {getRankBadge()}
             
             <Avatar className={cn(isTopThree ? "h-20 w-20" : "h-16 w-16")} data-testid={`avatar-${player.discordId}`}>
-              <AvatarImage src={player.avatarUrl ?? undefined} alt={player.username} />
+              <AvatarImage 
+                src={getMinecraftAvatarUrl(player.username, isTopThree ? 80 : 64)} 
+                alt={player.username} 
+              />
               <AvatarFallback className="text-lg font-semibold bg-primary/20 text-primary">
                 {player.username.slice(0, 2).toUpperCase()}
               </AvatarFallback>

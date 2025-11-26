@@ -1,4 +1,5 @@
-import { type Player, type PlayerRank, type InsertPlayerRankInput, type GameMode, type TierLevel, type CombatTitle, playerRanks, tierPoints, gameModes, combatTitles } from "@shared/schema";
+import { type PlayerRank, playerRanks } from "@shared/schema";
+import { type Player, type GameMode, type TierLevel, type CombatTitle, tierPoints, gameModes, combatTitles } from "@shared/types";
 import { db } from "./db";
 import { eq, ilike, desc, count, sql } from "drizzle-orm";
 
@@ -33,6 +34,7 @@ function aggregatePlayerData(ranks: PlayerRank[]): Player[] {
       player = {
         discordId: rank.discordId,
         username: rank.minecraftName,
+        minecraftUuid: rank.minecraftUuid,
         region: rank.region,
         totalPoints: 0,
         combatTitle: "Combat Specialist",
