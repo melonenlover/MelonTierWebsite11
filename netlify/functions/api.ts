@@ -194,6 +194,9 @@ app.use(express.urlencoded({ extended: false }));
 
 router.get("/rankings/:gameMode", async (req: Request, res: Response) => {
   try {
+    console.log("DATABASE_URL set:", !!process.env.DATABASE_URL);
+    console.log("Fetching rankings for gameMode:", req.params.gameMode);
+    
     const { gameMode } = req.params;
     
     const validGameModes = [...gameModes];
@@ -205,10 +208,11 @@ router.get("/rankings/:gameMode", async (req: Request, res: Response) => {
     }
 
     const players = await getPlayersByGameMode(gameMode as any);
+    console.log("Players found:", players.length);
     res.json(players);
-  } catch (error) {
-    console.error("Error fetching rankings:", error);
-    res.status(500).json({ error: "Failed to fetch rankings" });
+  } catch (error: any) {
+    console.error("Error fetching rankings:", error.message, error.stack);
+    res.status(500).json({ error: "Failed to fetch rankings", details: error.message });
   }
 });
 
