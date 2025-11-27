@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { gameModes } from "@shared/types";
+import { insertPlayerRankSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get rankings by game mode
@@ -92,6 +93,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching player count:", error);
       res.status(500).json({ error: "Failed to fetch player count" });
+    }
+  });
+
+  // Create or update player rank (upsert)
+  app.post("/api/ranks", async (req, res) => {
+    try {
+      const parseResult = insertPlayerRankSchema.safeParse(req.body);
+      
+      if (!parseResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid data", 
+          details: parseResult.error.errors 
+        });
+      }
+
+      const rank = await storage.upsertPlayerRank(parseResult.data);
+      res.status(200).json(rank);
+    } catch (error) {
+      console.error("Error saving player rank:", error);
+      res.status(500).json({ error: "Failed to save player rank" });
     }
   });
 

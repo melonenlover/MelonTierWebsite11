@@ -1,7 +1,7 @@
-import { type PlayerRank, playerRanks } from "@shared/schema";
+import { type PlayerRank, playerRanks, type InsertPlayerRankInput } from "@shared/schema";
 import { type Player, type GameMode, type TierLevel, type CombatTitle, tierPoints, gameModes, combatTitles } from "@shared/types";
 import { db } from "./db";
-import { eq, ilike, desc, count, sql } from "drizzle-orm";
+import { eq, ilike, desc, count, sql, and } from "drizzle-orm";
 
 function getCombatTitle(totalPoints: number): CombatTitle {
   if (totalPoints >= 200) return "Combat Grandmaster";
@@ -65,6 +65,7 @@ export interface IStorage {
   searchPlayers(query: string): Promise<Player[]>;
   getPlayerCount(): Promise<number>;
   getRawRanks(): Promise<PlayerRank[]>;
+  upsertPlayerRank(data: InsertPlayerRankInput): Promise<PlayerRank>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -139,6 +140,46 @@ export class DatabaseStorage implements IStorage {
 
   async getRawRanks(): Promise<PlayerRank[]> {
     return await db.select().from(playerRanks).orderBy(desc(playerRanks.rankPoints));
+  }
+
+  async upsertPlayerRank(data: InsertPlayerRankInput): Promise<PlayerRank> {
+    const existing = await db
+      .select()
+      .from(playerRanks)
+      .where(
+        and(
+          eq(playerRanks.discordId, data.discordId),
+          eq(playerRanks.gamemode, data.gamemode)
+        )
+      );
+
+    if (existing.length > 0) {
+      const [updated] = await db
+        .update(playerRanks)
+        .set({
+          minecraftName: data.minecraftName,
+          minecraftUuid: data.minecraftUuid,
+          rankName: data.rankName,
+          rankPoints: data.rankPoints,
+          region: data.region,
+          testerId: data.testerId,
+          updatedAt: new Date()
+        })
+        .where(
+          and(
+            eq(playerRanks.discordId, data.discordId),
+            eq(playerRanks.gamemode, data.gamemode)
+          )
+        )
+        .returning();
+      return updated;
+    } else {
+      const [inserted] = await db
+        .insert(playerRanks)
+        .values(data)
+        .returning();
+      return inserted;
+    }
   }
 }
 
