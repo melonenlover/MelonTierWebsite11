@@ -113,6 +113,34 @@ shared/
 ## User Preferences
 None documented yet.
 
+## Netlify Deployment
+
+The project is configured for Netlify deployment with serverless functions:
+
+### Configuration Files
+- `netlify.toml` - Main Netlify configuration
+- `build-netlify.sh` - Build script for Netlify
+- `netlify/functions/api.ts` - Express API as serverless function
+- `server/storage-serverless.ts` - Serverless-compatible database storage
+
+### Deployment Steps
+1. Push the code to a GitHub repository
+2. Log in to [Netlify](https://app.netlify.com)
+3. Click "Add new site" → "Import from Git"
+4. Select your repository
+5. Configure environment variables in Netlify:
+   - `DATABASE_URL` - Your PostgreSQL connection string (must be Neon or serverless-compatible)
+6. Deploy!
+
+### Important Notes
+- The backend runs as Netlify Functions (serverless)
+- Uses `@neondatabase/serverless` driver for PostgreSQL compatibility
+- API calls are redirected from `/api/*` to `/.netlify/functions/api/*`
+- Frontend is built with Vite and served as static files
+
+### Local Development
+Run `npm run dev` to start the development server locally on Replit.
+
 ## Next Steps (Future Enhancements)
 - Add user authentication for players to claim profiles
 - Implement match history and statistics tracking
