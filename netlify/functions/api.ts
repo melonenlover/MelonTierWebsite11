@@ -282,6 +282,7 @@ router.get("/stats/player-count", async (_req: Request, res: Response) => {
 });
 
 app.use("/", router);
+app.use("/.netlify/functions/api", router);
 
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   const status = err.status || err.statusCode || 500;
@@ -289,4 +290,6 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   res.status(status).json({ message });
 });
 
-export const handler = serverless(app);
+export const handler = serverless(app, {
+  basePath: "/.netlify/functions/api"
+});
