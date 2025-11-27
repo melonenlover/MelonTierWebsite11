@@ -3,8 +3,8 @@ import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 
 const express = require("express");
 const serverless = require("serverless-http");
-const { neon } = require("@neondatabase/serverless");
-const { drizzle } = require("drizzle-orm/neon-http");
+const { Pool } = require("pg");
+const { drizzle } = require("drizzle-orm/node-postgres");
 const { eq, ilike, sql } = require("drizzle-orm");
 const { pgTable, varchar, integer, serial, timestamp } = require("drizzle-orm/pg-core");
 
@@ -59,12 +59,19 @@ interface PlayerRank {
   updatedAt: Date;
 }
 
+let pool: any = null;
+
 function getDb() {
   if (!process.env.DATABASE_URL) {
     throw new Error("DATABASE_URL environment variable is not set");
   }
-  const queryClient = neon(process.env.DATABASE_URL);
-  return drizzle(queryClient);
+  if (!pool) {
+    pool = new Pool({ 
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false }
+    });
+  }
+  return drizzle(pool);
 }
 
 function getCombatTitle(totalPoints: number): CombatTitle {
